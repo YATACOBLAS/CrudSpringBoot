@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/plantilla :: head">
+      <title>index</title>
+</head>
+<body>
+<header th:replace="layout/plantilla :: header"></header>
+<!--
+<p th:text="${mensaje}"></p>
+-->
+<br>
+<br>
+<div class="row d-flex justify-content-center m-0" th:if="${personas!=null and !personas.empty}" >
+<div class="col-md-3 col-10 my-2 p-0">
+    <a class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModal" sec:authorize="hasRole('ROLE_ADMIN')" >Agregar Nuevo  <i class="fas fa-plus"></i></a>
+</div>
+    <div class="col-md-8 col-12 p-0 ">
+        <div class="table-responsive">
+    <table  class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{persona.nombre}"></th>
+            <th  scope="col"th:text="#{persona.apellido}"></th>
+            <th scope="col">[[#{persona.email}]]</th>
+            <th scope="col">[[#{persona.telefono}]]</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')" >[[#{accion.editar}]]</th>
+            <th  scope="col" sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="persona: ${personas}">
+            <td th:text="${persona.nombre}"></td>
+            <td th:text="${persona.apellido}"></td>
+            <td th:text="${persona.email}"></td>
+            <td th:text="${persona.telefono}"></td>
+            <td  sec:authorize="hasRole('ROLE_ADMIN')"> <a class="btn btn-success btn-block" th:href="@{/editar/} + ${persona.idPersona}" th:text="Editar"></a></td>
+            <td  sec:authorize="hasRole('ROLE_ADMIN')"> <a class="btn btn-danger btn-block" th:href="@{/eliminar(idPersona=${persona.idPersona})}" th:text="Eliminar"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+ </div>
+</div>
+<div th:if="${personas==null or personas.empty}" >
+   <h1>
+       No hay datos que visualizar
+   </h1>
+</div>
+
+<footer th:replace="layout/plantilla :: footer" ></footer>
+</body>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Modificando Persona</h2>
+
+                <form  class="form-group" th:action="@{/guardar}" method="post" th:object="${persona}">
+                    <input type="hidden" th:field="*{idPersona}">
+
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" class="form-control" th:field="*{nombre}">
+                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
+                    <br/>
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" name="apellido" class="form-control" th:field="*{apellido}">
+                    <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error Apellido</span>
+                    <br/>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" class="form-control" th:field="*{email}" >
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error Email</span>
+                    <br>
+                    <label for="telefono" >Telefono:</label>
+                    <input type="tel" name="telefono" class="form-control" th:field="*{telefono}">
+                    <br>
+                    <input class="btn btn-primary btn-block" type="submit" name="guardar" value="Guardar">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

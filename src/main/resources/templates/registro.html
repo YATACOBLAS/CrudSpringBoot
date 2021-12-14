@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es"
+
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/plantilla :: head" >
+    <title>Registro</title>
+</head>
+<body>
+<div class="row d-flex justify-content-center">
+    <div class="col-5">
+<form th:action="@{/registrarUsuario}" method="post" th:object="${usuario}" class="form-group"  >
+    <label for="username">Usuario</label>
+    <input type="text" name="username" th:field="*{username}" class="form-control">
+    <br>
+    <label for="password">Password</label>
+    <input type="password" name="password" th:field="*{password}" class="form-control">
+    <br>
+    <input  type="submit" name="registrar" value="Registrar">
+</form>
+</div>
+</div>
+</body>
+</html>

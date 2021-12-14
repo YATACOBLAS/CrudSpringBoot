@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/plantilla :: head"></head>
+<body>
+<header th:replace="layout/plantilla :: header"></header>
+<h2 class="text-center">Modificando Persona</h2>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-8">
+
+
+<form class="fomr-group" th:action="@{/guardar}" method="post" th:object="${persona}">
+    <input type="hidden" th:field="*{idPersona}">
+
+    <label for="nombre">Nombre:</label>
+    <input class="form-control" type="text" name="nombre" th:field="*{nombre}">
+    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
+    <br/>
+    <label for="apellido">Apellido:</label>
+    <input class="form-control" type="text" name="apellido" th:field="*{apellido}">
+    <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error Apellido</span>
+    <br/>
+    <label for="email">Email:</label>
+    <input class="form-control" type="email" name="email" th:field="*{email}" >
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error Email</span>
+    <br>
+    <label for="telefono" >Telefono:</label>
+    <input class="form-control" type="tel" name="telefono" th:field="*{telefono}">
+    <br>
+    <input class="btn btn-success btn-block" type="submit" name="guardar" value="Guardar">
+</form>
+        <br>
+        <a class="btn btn-primary btn-block" th:href="@{/}">Cancelar</a>
+    </div>
+</div>
+<br>
+
+<footer th:replace="layout/plantilla :: footer"></footer>
+</body>
+</html>

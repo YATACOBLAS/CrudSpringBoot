@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <title>AppSpring</title>
+</head>
+<body>
+<header th:fragment="header">
+        <nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand " href="#"> <h1>[[#{plantilla.titulo}]]</h1></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+            </ul>
+                 <form class="text-white h1 form-inline my-2 my-lg-0 d-flex justify-content-center" th:action="@{/logout}" method="POST">
+
+                     Bienvenido <span class="m-2" sec:authentication="name">Usuario que hizo login</span>
+                        <a href="#"  class="btn btn-outline-danger m-2" onclick="this.parentNode.submit();">Logout</a>
+                 </form>
+        </div>
+    </nav>
+
+</header>
+<br>
+<br>
+<footer th:fragment="footer" class="bg-dark text-white fixed-bottom d-flex justify-content-center">
+          <!--es para llamar los roles que posee
+          <b>Rol:</b><span sec:authentication="principal.authorities"><Roles></Roles></span>
+                -->
+    <a  class="text-white btn-primary m-1 p-1" th:href="@{/(lang=en)}">EN</a> |
+    <a class="text-white btn-primary m-1 p-1" th:href="@{/(lang=es)}">ES</a>
+  <span>[[#{plantilla.pie-pagina}]] @  <a href="https://www.blas.codes">www.blas.codes</a></span>
+</footer>
+</body>
+</html>
